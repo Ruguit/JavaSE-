@@ -1,0 +1,14 @@
+数据类型的分类：4大类，共8种
+
+整数：
+Byte 1字节
+Short 2字节
+Int(默认) 4字节
+Long 8字节
+浮点数
+Float 4字节
+Double(默认) 8字节
+字符
+Char 2字节
+布尔
+Boolean 1字节
