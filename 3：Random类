@@ -1,0 +1,31 @@
+import java.util.Random;
+
+public class Test {
+    public static void main(String[] args){
+        String strNum="";
+        Random r=new Random();//创建Random随机数对象
+        for (int i = 0; i < 5; i++) {
+            int a=r.nextInt(3);// 0-2
+            switch(a){
+                case 0://随机大写
+                    strNum+=(char)(r.nextInt(26)+65);
+                    break;
+                case 1://随机小写
+                    strNum+=(char)(r.nextInt(26)+97);
+                    break;
+                default://加入数字
+                    strNum+=r.nextInt(10);
+            }
+        }
+        System.out.println(strNum);
+
+        //简化写法
+        String s="";
+        String str2="zaqwsxdecfrvgtbhynujmkilopZAQWSXDCERFVGTBHYNJUMKILOP1234567890";
+        for (int i = 0; i < 5; i++) {
+            int aa=r.nextInt(str2.length());
+            s+=(char)(str2.charAt(aa));
+        }
+        System.out.println(s);
+    }
+}
