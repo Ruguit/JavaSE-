@@ -1,0 +1,5 @@
+byte,short,char->int ->long ->float ->double
+
+注意事项：
+表达式结果的类型由最高类决定。
+byte,short,char直接转换位int类型计算
