@@ -1,0 +1,35 @@
+
+import java.util.Arrays;
+
+public class Test {
+    public static void main(String[] args){
+        int arr[]={1,2,3,4,7,6,8,5,43,2};
+        //1：元素求和
+        int sum=0;
+        for (int i : arr) {
+            sum+=i;
+        }
+        System.out.println(sum);
+        //2：元素求最值
+        int max=0;
+        for (int i : arr) {
+            if (i>max) {
+                max=i;
+            }
+        }
+        System.out.println("max="+max);
+        //3：Arrays.fill()替换
+        Arrays.fill(arr,0,arr.length,0);//全替换
+        //4：Arrays.sort()从小到大的排序
+        Arrays.sort(arr);
+        System.out.println(Arrays.toString(arr));
+        //5：Arrays.copyOf全复制
+        int[] arr1=Arrays.copyOf(arr,arr.length);
+        //6：Arrays.copyOfRange部分复制
+        int [] arr2=Arrays.copyOfRange(arr,0,arr.length);
+        //7；Arrays.binarySearch()查询
+        Arrays.binarySearch(arr,0,arr.length,5);//返回5的索引值
+        //8：Arrays.toString()返回String类型
+        System.out.println(Arrays.toString(arr));
+    }
+}
