@@ -1,0 +1,44 @@
+类中的五大成分：成员变量，构造器，方法，代码块，内部类。
+
+实体类的对象可以用于在程序中封装数据。
+
+标准：
+成员变量使用private修饰
+提供get，set方法
+必须提供无参构造器，有参构造器可写可不写。
+
+
+class people{
+    private String name;
+    
+    public people(){
+        
+    }
+    public people(String name){
+        this.name=name;
+    }
+    public void setName(String name){
+        this.name=name;
+    }
+    public String setName(){
+        return name;
+    }
+}
+
+class people{
+    private String name;
+    
+    public people(){
+        
+    }
+    public people(String name){
+        this.name=name;
+    }
+    public void setName(String name){
+        this.name=name;
+    }
+    public String setName(){
+        return name;
+    }
+}
+
