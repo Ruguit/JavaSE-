@@ -1,0 +1,70 @@
+String类型常称为不可变字符串类型，它的对象在创建后不能被更改。
+以双引号给出的对象，存储与字符串常量池中，对于以下代码：
+String name="传智";
+name+="教育";
+只是在堆内存中，字符串常量池之外，创建了一个新的对象。
+String的每次修改都是产生并指向了新的字符串对象，原来的没有改变。
+
+String类型创建对象方式：
+1：直接使用""定义：
+String str="String";
+2：通过String类的构造器创建对象：
+public String()
+pulbic String (String str)
+public String (char[] ch)
+public String (byte[] bytes)
+
+String的常用API
+
+public class Test {
+    public static void main(String[] args){
+        String str="String";
+        //获取字符串的长度
+        int length = str.length();
+        //获取单个索引处的字符
+        int index=0;
+        char c = str.charAt(index);
+        //将当前字符串转换成字符数组
+        char[] chars = str.toCharArray();
+        //根据开始与结束处的索引得到新的字符串  包前不包后
+        String substring = str.substring(0, 2);
+        //从传入的索引处开始 到末尾为止 得到新的字符串
+        String substring1 = str.substring(0);
+        //使用新值 将字符串中的旧值替换得到新的字符串
+        String replace = str.replace("s", "a");
+        //查找是否有某一元素
+        boolean s = str.contains("s");
+        //查找是否由某一元素开始
+        boolean a = str.startsWith("a");
+        //根据传入的规则切割字符串 得到字符串数组返回
+        String str4="1,2,3,4,5,6";
+        String[] split = str4.split(",");
+        //查找某个字符串在整体字符串中的位置
+        String str1="wearejava";
+        int a1 = str1.indexOf("a");
+        int a2 = str1.lastIndexOf("a");
+        //去除字符串首尾的空格
+        String trim = str1.trim();
+
+        //通过Unicode值进行比较
+        String stra="a"
+        String strb="b";
+        String strc="c";
+        System.out.println(stra.compareTo(strb));//a在b之前为负数
+        System.out.println(strc.compareTo(strb));//c在b之后为正数
+
+        //大小写转换：
+        String str2="abcABC";
+        System.out.println(str2.toLowerCase());//将所有大写改为小写
+        System.out.println(str2.toUpperCase());//将所有小写改为大写
+
+        //比较：
+        //1:只关注字符的内容知否相等，
+        String s1="asd";
+        String s2="ASD";
+        boolean equals = s1.equals(s2);
+        //2：不关注字符的大小写形式
+        boolean b = s1.equalsIgnoreCase(s2);
+
+    }
+}
