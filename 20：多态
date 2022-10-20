@@ -1,0 +1,84 @@
+多态概述
+同类型的对象，执行同一个行为，会表现不同的行为特征。
+
+
+多态常见形式：
+父类类型 对象名称=new 子类构造器；
+接口 对象名称=new 子类构造器；
+
+
+多态中成员访问的特点：
+方法调用时；编译看左边，运行看右边。
+变量调用时：编译看左边，运行也看左边。（多态侧重行为多态）
+
+
+多态的前提：
+又继承/实现关系。又父类引用指向子类对象，又方法重写。
+
+多态的优势：
+在多态的形式下：右边对象可以实现解耦合，便于扩展和维护。
+当对象改变时，后续业务希行为随对象而改变，后续代码无需修改，
+
+定义方法时，使用父类行型作为参数，该方法可以接收父类的的一切子类对象，体现多态的扩展性与便利。
+比如以下代码：
+public class Test {
+    public static void main(String[] args) {
+       Animal dog=new Dog();
+       go(dog);
+       Animal cat=new Cat();
+       go(cat);
+    }
+    public static void go(Animal a){
+        a.run();
+    }
+}
+abstract class Animal{
+    abstract public void run();
+}
+class Cat extends Animal{
+    @Override
+    public void run() {
+        System.out.println("猫咪run");
+    }
+}
+class Dog extends Animal{
+    @Override
+    public void run() {
+        System.out.println("狗run");
+    }
+}
+注意：多态下不能使用子类独有的方法。
+
+多态下引用数据类型的类型转换：
+自动类型转换：（子类->父类）子类对象赋值给父类类型的变量指向。
+Cat cat=new Cat();
+Animal animal=cat;
+
+强制类型转换：（父类->子类）
+子类 对象变量=（子类）父类类型的变量；
+Animal dog=new Dog();
+Dog d=(Dog)dog;
+
+
+作用：可以解决多态下的劣势：可以实现调用子类独有的功能。
+注意：如果转换后的类型 和 对象的真实类型不是同一种类型，那么在转换的时候就会出现报错ClassCastException
+
+判断类型：
+转换之前建议使用关键字instanceof判断当前对象的真实类型，再进行强制转换。
+变量名 instancof 真实类型
+如以下代码：
+
+public static void Runing(Animal animal){
+        if(animal instanceof Cat){
+            Cat cat=(Cat)animal;
+            cat.eat();
+        }else if(animal instanceof Dog){
+            Dog dog=(Dog) animal;
+            dog.eat();
+        }else{
+            System.out.println("当前对象有误");
+        }
+    }
+
+
+
