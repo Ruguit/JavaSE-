@@ -1,0 +1,138 @@
+
+常用API-Object，Objects
+
+1:toString()方法。
+用于被子类重写，以便返回信息，
+
+2：equals（）方法用于重写，自定义比较的内容。
+
+3.getClass（）方法，得到类名.包名。
+
+4：Objects.equals()，增加判断对象是否为Null。
+
+5:Objects.isNull() ,判断对象是否为Null.
+import java.util.Objects;
+
+public class Test{
+    public static void main(String[] args)  {
+        people p1=new people();
+        people p2=new people();
+        System.out.println(p1.getClass());
+        System.out.println(p1.getClass().getName());
+        System.out.println(p1.toString());
+        System.out.println(p1.equals(p2));
+        System.out.println(Objects.isNull(p1));
+    }
+}
+class people{
+    private String name;
+    private int sge;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        people people = (people) o;
+        return sge == people.sge && Objects.equals(name, people.name);
+    }
+
+    @Override
+    public String toString() {
+        return "people{" +
+                "name='" + name + '\'' +
+                ", sge=" + sge +
+                '}';
+    }
+}
+
+
+常用API-StringBuilder
+StringBuilder是一个可变的字符串类，可以看成一个对象容器。
+作用：用于操作字符串。
+
+构造器：
+StringBuilder stringBuilder1=new StringBuilder();
+String str="hello world";
+StringBuilder stringBuilder2=new StringBuilder(str);
+
+相关API：
+public class Test{
+    public static void main(String[] args)  {
+        StringBuilder stringBuilder1=new StringBuilder("hello world ");
+        //添加，支持链式写法
+        stringBuilder1.append("java");
+        //反转
+        stringBuilder1.reverse();
+        //去长度
+        int len=stringBuilder1.length();
+        //返回String类，
+        String string = stringBuilder1.toString();
+        //根据所以单个删除。返回修改后的数据
+        StringBuilder stringBuilder = stringBuilder1.deleteCharAt(0);
+        //根据范围删除。
+        int start=0;
+        int end=2;
+        stringBuilder.delete(start,end);
+	//insert(索引位置，字符串)        插入方法
+    }
+}
+
+
+常用API-System系统操作类。
+得到系统当前的时间毫秒值。
+long l = System.currentTimeMillis();
+
+种植JVM的运行：
+System.exit(0);
+
+赋值数组：
+int []arr=new int[]{1,2,3};
+        int []aee=new int[5];
+        // 从arr的索引0处开始，向aee是索引0处复制arr.length个数据。
+        System.arraycopy(arr,0,aee,0,arr.length);
+
+
+常用API-BigDecimal
+精度运算类：
+用于解决浮点型运算精度失真的问题。
+ double d1=10.0;
+        double d2=3;
+        System.out.println(d1/d2);3.3333333333333335
+        
+  import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+public class Test {
+    public static void main(String[] args){
+        BigDecimal b1=BigDecimal.valueOf(10.0);//包装浮点数为BigDecimal对象
+        BigDecimal b2=BigDecimal.valueOf(3.0);
+        //除法运算
+        BigDecimal divide = b1.divide(b2,2, RoundingMode.HALF_DOWN);//保留一定的小数位数：2位
+        //加法运算
+        System.out.println(b1.add(b2));//13.0
+        //减法运算
+        System.out.println(b1.subtract(b2));//7.0
+        //乘法运算
+        System.out.println(b1.multiply(b2));//30.0
+    }
+}
+
+常用API-Math
+属于一个功能类，可以实现一些计算功能。
+该类包含用于执行基本数值运算的方法，例如基本指数、对数、平方根和三角函数
+import static java.lang.Math.*;
+public class Test {
+    public static final double p=PI;
+    public static final double e=E;
+    public static void main(String[] args){
+        Math.abs(-1);//得到数值类型的绝对值
+        Math.addExact(1,1);//返回其参数的总和
+        Math.IEEEremainder(10,3);//根据 IEEE 754 标准对两个参数计算余数运算。
+        Math.incrementExact(1);//返回递增 1 的参数
+        Math.log(1);//返回值的自然对数（以 e 为基数）
+        Math.log10(10);//返回值的以 10 为底的对数
+        Math.max(1,2);//返回两个值中的较大者
+        Math.min(1,2);//返回两个值中的较小者
+        Math.pow(2,3);//算2的3次方
+    }
+}
