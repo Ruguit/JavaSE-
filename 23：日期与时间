@@ -1,0 +1,138 @@
+日期与时间-Date
+Date date=new Date();
+ System.out.println(date.toString());//Thu Jul 28 10:38:46 CST 2022 默认是重写的
+        long time =date.getTime();//转换时间毫秒值
+        Date date1=new Date();
+
+        date1.setTime(System.currentTimeMillis());//setTime()里面放时间毫秒值
+        Date d1=new Date(System.currentTimeMillis()-100);
+        //比较Date
+        System.out.println(date1.before(d1));//false
+        System.out.println(date1.after(d1));//true
+
+
+
+日期与时间-SimpleDateFormat
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class Test{
+    public static void main(String[] args) throws ParseException {
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String strDate="1999-11-10 11:11:11";
+//解析字符串
+        Date date=simpleDateFormat.parse(strDate);
+        System.out.println(date);//Wed Nov 10 11:11:11 CST 1999
+//格式化日期
+        Date date1=new Date();
+        String strdate1=simpleDateFormat.format(date1);
+        System.out.println(strdate1);//2022-07-28 17:41:22
+    }
+}
+
+
+
+时间与日期-Calender
+代表系统此刻日期对象的对象。是一个abstract，所以不能创建对象。但可以使用。
+import java.util.Calendar;
+
+public class Test{
+    public static void main(String[] args)  {
+        Calendar instance = Calendar.getInstance();
+        long timeInMillis = instance.getTimeInMillis();//转换毫秒值
+    }
+}
+
+
+JDK8新增日期类-LocalDateTime LocalDate LocalTime
+
+LocaldateTime Localdate LocalTime 创建对象的方式：
+//根据当前时间创建对象
+        LocalDate localDate=LocalDate.now();
+        LocalTime localTime= LocalTime.now();
+        LocalDateTime localDateTime= LocalDateTime.now();
+ //指定时间创建对象
+        LocalDate localDate=LocalDate.of(1,1,1);
+        LocalTime localTime= LocalTime.of(1,1,1);
+        LocalDateTime localDateTime= LocalDateTime.of(1,1,1,1,1,1);
+        
+LocalDateTime的转换API   ：
+//转换API
+        LocalDateTime localDateTime= LocalDateTime.of(1,1,1,1,1,1);
+        LocalDate localDate = localDateTime.toLocalDate();//转换LocalDate
+        LocalTime localTime = localDateTime.toLocalTime();//转换LocalTime
+        
+//修改API 
+LocalDateTime包含LocalDate 与 LocalTime 的 API 以下使用LocalDateTime举例
+        LocalDateTime localDateTime=LocalDateTime.of(2022,1,10,1,1,10);
+        //添加API
+        localDateTime.plusDays();
+        localDateTime.plusYears();
+        localDateTime.plusMonths();
+        localDateTime.plusHours();
+        localDateTime.plusMinutes();
+        localDateTime.plusSeconds();
+        //减少API
+        localDateTime.minusDays();
+        localDateTime.minusYears();
+        localDateTime.minusMonths();
+        localDateTime.minusHours();
+        localDateTime.minusMinutes();
+        localDateTime.minusSeconds();
+        //直接修改时间
+        localDateTime.withHour();
+        localDateTime.withMinute();
+        localDateTime.withSecond();
+        localDateTime.withDayOfMonth();
+        localDateTime.withDayOfYear();
+        localDateTime.withMonth();
+        localDateTime.withYear();
+        //比较时间
+        LocalDate loaclDate1=LocalDate.of(1,1,1);
+        LocalDate loaclDate2=LocalDate.of(1,1,2);
+        boolean after = loaclDate1.isAfter(loaclDate2);
+        boolean before = loaclDate1.isBefore(loaclDate2);      
+        
+        
+        0Instant时间戳：
+        //获取当前时间戳对象
+        Instant instant=Instant.now();
+        //转换为Date
+        Date date= (Date) Date.from(instant);
+        //date转换为时间戳
+        Instant instant1=date.toInstant();
+        
+        
+        JDK8新增日期类-日期与时间格式器DateTimeFormatter
+        //获取当前时间对象
+        LocalDateTime l1=LocalDateTime.now();
+        //设置转换格式
+        DateTimeFormatter df1=DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //转换方法
+        String  lstr=l1.format(df1);
+        //解析字符串
+        String strs="2019-11-11 11:11:11";
+        LocalDateTime localDateTime=LocalDateTime.parse(strs,df1);
+        
+        
+        JDK8新增日期类-period日期间隔Duration时间间隔
+        //Period用于比较LocalDate计算日期间隔
+        LocalDate d1=LocalDate.now();
+        LocalDate d2=LocalDate.of(1995,1,11);
+        Period period=Period.between(d2,d1);
+        System.out.printf("%d年 %d月 %d日",period.getYears(),period.getMonths(),period.getDays());
+          //Duration 用于比较日期 比较LocalDateTime 与 Instant
+        LocalDateTime d1=LocalDateTime.now();
+        LocalDateTime d2=LocalDateTime.of(1995,1,11,1,1,1);
+        Duration duration=Duration.between(d2,d1);//第二个参数减去第一个参数
+        duration.toDays();//比较天
+        duration.toHours();//比较时
+        duration.toMinutes();//比较分
+        duration.toMillis();//比较毫秒
+        duration.toNanos();//比较纳秒
+        
+        JDK8新增日期类-ChronoUnit
+        可以用于比较所有的时间：
+        ChronoUnit.YEARS.between(参数一，参数二)；
+        YEARS可以换成其他的时间
