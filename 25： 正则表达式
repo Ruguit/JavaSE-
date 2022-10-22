@@ -1,0 +1,59 @@
+用一些规定的字符类制定规则，用于校验数据格式的合法性。比如 用户登录方面、
+
+Public Boolean matches（String regex）；
+匹配成功返回true，不成功返回false.
+
+
+匹配规则：
+字符类：
+str.matches("[abc]");//匹配abc
+        str.matches("[^abc]");//匹配abc以外的
+        str.matches("[a-zA-Z]");//匹配a到z与A到Z
+        str.matches("[a-z[A-Z]]");//匹配a到z或A到Z
+        str.matches("[a-z[A-Z]]");//匹配a到z或A到Z
+        str.matches("[a-z&&[abc]]");//匹配交集
+        str.matches("[a-z&&[^abc]]");//匹配交集以外
+        str.matches("[a-z&&[^abc]]");//匹配交集以外
+ 
+ 预定义字符类：
+ String str="123456abcABC";
+        str.matches("[\\d]");//匹配任意一个数字
+        str.matches("[\\D]");//非数字
+        str.matches("[\\s]");//一个空白字符
+        str.matches("[\\S]");//一个非空白字符
+        str.matches("[\\w]");//匹配任意一个数字 字母 下划线
+        str.matches("[\\W]");//一个非单词字符串
+ 
+ 贪婪的量词：
+ ？一次或根本不
+ *零次或多次
+ +一次或多次
+ {n}正好n次
+ {n,}至少n次
+ {n,m}至少n次，不超过m次
+ 
+ 正则表达式在字符串方法中的使用。
+替换与分割
+ String str="123456abcABC";
+        //替换
+        System.out.println(str.replaceAll("[\\d]", "A"));//AAAAAAabcABC
+        //分割
+        String[] split = str.split("[a]");
+        System.out.println(Arrays.toString(split));//[123456, bcABC]
+        
+        
+使用正则表达式匹配规则
+String str="nasonbxcaos吃粑粑惨败3498058377@qq.comnocnbfo";
+        //得到qq邮箱的匹配规则
+        String sqq="\\d{10}@qq.com|\\w+";//使用|连接两种不同的匹配规则
+        //编译正则表达式成为一个规则对象
+        Pattern pattern=Pattern.compile(sqq);
+        //通过匹配规则得到一个匹配数据内容的匹配器对象
+        Matcher matcher= pattern.matcher(str);
+        //通过匹配器去内容中爬取信息
+        while(matcher.find()){
+            System.out.println(matcher.group());
+            //nasonbxcaos
+            //3498058377@qq.com
+            //nocnbfo
+        }
