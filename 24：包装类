@@ -1,0 +1,21 @@
+就是8种数据类型对应的引用类型：
+byte Byte
+short Short
+int Integer
+long Long
+char Character
+float Float
+double Double 
+boolean Boolean
+
+集合与泛型也只支持包装类。
+
+特有功能：
+基本数据类型转换为字符串类型：
+1：toString()方法
+2：Integer.toString(基本数据类型)  方法
+把字符串类型转换为真实的数据类型。
+1：Integer.parseInt("字符串类型的整数")
+2:Double.parseDouble("字符串类型的小数")
+
+
