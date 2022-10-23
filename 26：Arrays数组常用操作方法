@@ -1,0 +1,23 @@
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class Test {
+    public static void main(String[] args){
+        //Arrays数组操作根据工具类
+        Integer a[]=new Integer[]{1,2,3,4,5,6,7,8,11,9,10};
+        System.out.println(Arrays.toString(a));
+        //二分查找法 返回索引 必须先正序排序
+        int i = Arrays.binarySearch(a, 11);
+        System.out.println(i);
+        //升序排序
+        Arrays.sort(a);
+        //自定义比较内容
+        Arrays.sort(a, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o2-o1;
+            }
+        });
+        System.out.println(Arrays.toString(a));//[11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+    }
+}
