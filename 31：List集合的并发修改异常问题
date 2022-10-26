@@ -1,0 +1,34 @@
+​
+问题来源：这个问题主要是来自与集合的特性，集合没有长度限制，所以当删除一个元素时，当前元素后面的元素都会往前移动，
+荣国这个时候是通过循环遍历删除的话，那循环的索引又会往后走一位，总的来看；相当于索引往后走了两位，那就会跳过一个元素，出现Bug。
+解决方法一：使用迭代器遍历删除
+publicclassDamoTest{
+    publicstaticvoidmain(String[] args){
+        List<Integer> integerList=newArrayList<>();
+        Collections.addAll(integerList,1,2,3,4,5);
+        Iterator<Integer>it=integerList.iterator();
+        while(it.hasNext()){
+            Integer integer= it.next();
+            if(integer==2||integer==3){
+                it.remove();
+                continue;
+            }
+            System.out.println(integer);//1 4 5}
+    }
+}
+
+
+方法二：从后往前删除
+这是往前面找到，即使后面的元素上来了也不会有影想。
+List<Integer> integerList=newArrayList<>();
+        Collections.addAll(integerList,1,2,3,4,5);
+        for(inti=integerList.size() - 1; i >= 0; i--) {
+            if(integerList.get(i)==2||integerList.get(i)==3){
+                integerList.remove(i);
+                continue;
+            }
+            System.out.println(integerList.get(i));//5 4 1 }
+
+
+
+​
