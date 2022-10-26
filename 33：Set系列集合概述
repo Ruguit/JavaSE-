@@ -1,0 +1,100 @@
+无序 不重复 无索引
+
+Set的实现类：
+HashSet：无序 不重复 无索引
+LinkedHashSet：有序 不重复 无索引
+TreeSet：排序 不重复 无索引
+
+可以使用Collection的API
+
+重写equals与hashCode方法比较Set集合的对象：用于认为两个内容一样的对象是重复的
+public class DamoTest {
+    public static void main(String[] args){
+        Student student1=new Student("李华",11,"男");
+        Student student2=new Student("李华",11,"男");
+        student1.hashCode();
+        student2.hashCode();
+        HashSet<Student>studentHashSet=new HashSet<>();
+        studentHashSet.add(student1);
+        studentHashSet.add(student2);
+        System.out.println(studentHashSet.size());//1
+    }
+}
+class Student{
+    private String name;
+    private int age;
+    private String sex;
+
+    public Student() {
+    }
+
+    public Student(String name, int age, String sex) {
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return age == student.age && Objects.equals(name, student.name) && Objects.equals(sex, student.sex);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age, sex);
+    }
+
+HashSet底层无序，去重复的原理：哈希表
+JDK8之前：底层采用数组+链表
+
+HashSet jdk1.7版本原理解析
+1：创建默认长度16的数组。长度达到12时，扩容为原来的两倍。
+2：根据元素的哈希值与数组的长度求余计算出存入的位置（哈希算法）
+3：判断当前位置是否为null,null就存入
+4：不为null，使用equals比较
+5：一样就不存，不一样就存入数组 JDK8之后新元素挂在老元素下面。JDK 7新元素站老元素的位置，指向老元素
+
+JDK8之后：底层采用数组+链表+红红黑树：链表长度超过8 自动转化为红黑树。
+
+哈希值：根据地址算出来的int类型的数值。
+public int hashCode():返回对象的哈希值；
+不同对象的哈希值不一样：
+
+LinkedHashSet底层原理依然是哈希表，只是每一个元素又额外补充一个双链表机制记录存储顺序
+
+TreeSet实现类：
+基于红黑树的数据结构
+一定要排序：
+数值类型按数字大小排序。
+字符串按首字母编号排序。
+自定义类型要自定义排序规则：
+方式一：
+让自定义的类实现Comparable接口重写里面的compareTo方法；
+方式二：TreeSet的有参构造器，设置Comparator接口对应的比较器对象，来制定比较规则。
