@@ -1,0 +1,29 @@
+​
+方法中的可变参数的特点：
+
+一：可变参数唯一，
+
+二：可变参数必须放在末尾，
+
+三：可变参数可以接受任意数量的元素，包括数组。
+
+四：方法内地可变参数相当与一个数组，可以通过数组的方式遍历每一个元素，或者得到其长度
+
+public class CodingTest {
+    public static void main(String[] args) {
+        getNumber(1);
+        System.out.println();
+        getNumber(1,2);
+        System.out.println();
+        getNumber(new int[]{1,2,3});
+    }
+    public static void getNumber(int...number){
+        int len=number.length;
+        for (int i = 0; i < number.length; i++) {
+            System.out.print(number[i]+" ");
+        }
+    }
+}
+
+
+​
