@@ -1,0 +1,76 @@
+JDK5引入，用于在编译阶段约束操作的数据类型。
+集合体系的所有接口与实现类都支持泛型。
+泛型只支持引用数据类型。
+
+自定义泛型类
+
+Import java.util.ArrayList;
+
+Public class test{
+Public static void main(String[] args){
+MyArrayList<String> myArrayList=new MyArrayList<>();
+myArrayList.add("hello");
+myArrayList.remove("hello");
+}
+}
+Class MyArrayList<T>{
+Private ArrayList list=new ArrayList();
+Public void add(T t){
+list.add(t);
+}
+Public void remove(T t){
+list.remove(t);
+}
+}
+
+
+自定义泛型方法;
+Import java.awt.im.InputContext;
+
+Public class test{
+Public static void main(String[] args){
+Integer[] aee=new Integer[]{1,2,3};
+print(aee);
+String[] str=new String[]{"a","b","c"};
+print(str);
+}
+Public static<E>void print(E[]arr){
+if(arr!=null){
+StringBuilder stringBuilder=new StringBuilder("[");
+for(int i=0;i<arr.length;i++){
+stringBuilder.append(arr[i]).append(i==arr.length-1?"":",");
+}
+stringBuilder.append("]");
+System.out.println(stringBuilder);
+}else{
+System.out.println(arr);
+}
+}
+}
+
+自定义泛型接口：
+public Interface date(T){}
+
+通配符？
+?在使用泛型的时候，代表一切类型。
+ETKV实在定义泛型的时候使用。
+Import java.util.ArrayList;
+
+Public class test{
+Public static void main(String[] args){
+ArrayList<baw>ban=newArrayList<>();
+ArrayList<benz>benzs=newArrayList<>();
+go(ban);
+go(benzs);
+}
+Public static void go(ArrayList<?extendsCar>listcar){
+
+}
+}
+
+Class Car{}
+Class baw extends Car{}
+Class benz extends Car{}
+
+？extends Car 是Car或Car的子类
+？super Car 是Car或Car的父类
