@@ -1,0 +1,87 @@
+​
+第一种方式：通过键找值
+
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class CodingTest {
+    public static void main(String[] args) {
+        //Map集合的遍历
+        Map<Integer,String> maps=new HashMap<>();
+        //1：给maps集合添加数据
+        maps.put(1,"a");
+        maps.put(2,"b");
+        maps.put(3,"c");
+        maps.put(4,"d");
+        System.out.println(maps);//{1=a, 2=b, 3=c}
+
+        //1:键找值
+        //Set<E>keySet得到所有的键
+        Set<Integer>set=maps.keySet();
+        for (Integer integer : set) {
+            String mapsValue= maps.get(integer);
+            System.out.println(integer+"->"+mapsValue);
+        }
+    }
+}
+
+第二种方法：转换为键值对进行遍历
+
+
+public class CodingTest {
+    public static void main(String[] args) {
+        //Map集合的遍历
+        Map<Integer,String> maps=new HashMap<>();
+        //1：给maps集合添加数据
+        maps.put(1,"a");
+        maps.put(2,"b");
+        maps.put(3,"c");
+        maps.put(4,"d");
+        System.out.println(maps);//{1=a, 2=b, 3=c}
+
+        //将Map集合转换为Set对象，使Set集合中的每一个元素都是键值对实体
+        //Set<Map.Entry<K,V>>entrySet();
+        Set<Map.Entry<Integer,String >>entries=maps.entrySet();
+        //遍历元素
+        for (Map.Entry<Integer, String> entry : entries) {
+            //通过getkey（）与getValue（）方法得到对应的值
+            System.out.println(entry.getKey()+"->"+entry.getValue());
+        }
+    }
+}
+
+第三种方法：使用Lambda表达式遍历
+
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
+
+public class CodingTest {
+    public static void main(String[] args) {
+        //Map集合的遍历
+        Map<Integer,String> maps=new HashMap<>();
+        //1：给maps集合添加数据
+        maps.put(1,"a");
+        maps.put(2,"b");
+        maps.put(3,"c");
+        maps.put(4,"d");
+        System.out.println(maps);//{1=a, 2=b, 3=c}
+
+        maps.forEach(new BiConsumer<Integer, String>() {
+            @Override
+            public void accept(Integer integer, String s) {
+                System.out.println(integer+"==="+s);
+            }
+        });
+        //Lambda表达式简化后
+        maps.forEach((K,V)->{
+            System.out.println(K+" - "+V);
+        });
+    }
+}
+
+
+​
