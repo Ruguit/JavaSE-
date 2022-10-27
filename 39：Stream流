@@ -1,0 +1,167 @@
+Stream流概述;
+作用：用于简化数组与集合操作的API
+
+Stream流的三类方法：
+1：获取Stream流的方法
+2：中间方法
+3：终结方法
+
+
+获取Stream流;
+Collection collecton=new ArrayList();
+        //Collection集合获取Stream流
+        Stream s=collecton .stream();
+
+        //Map集合获取流
+        Map<Integer,String> mapa=new HashMap<>();
+        //键流
+        Stream<Integer> s1=mapa.keySet().stream();
+        //值流
+        Stream<String> s2=mapa.values().stream();
+        //键值对流<拿整体>
+        Stream<Map.Entry<Integer,String>> s3=mapa.entrySet().stream();
+
+        //获取数组的Stream流
+        String [] strings={"小赵","小李"};
+        Stream<String> stringStream= Arrays.stream(strings);
+        Stream<String> stream=Stream.of(strings);
+       
+       
+       
+ Stream流的常用API:中间方法
+ 
+
+public class Test {
+    public static void main(String[] args){
+        List<String>l=new ArrayList<>();
+        Collections.addAll(l,"12","13","2342");
+        Stream<String>stream=l.stream();
+        //过滤的方法
+        stream.filter(new Predicate<String>(){
+            @Override
+            public boolean test(String s) {
+                return s.startsWith("1");//得到1开头的
+            }
+        }).forEach(System.out::println);
+        
+        //获取前一个元素
+        stream.limit(1);
+
+        //跳过前一个元素
+        stream.skip(1);
+
+        //去除流中重复的元素;
+        stream.distinct();
+
+        //合并流
+        Stream ss1=l.stream();
+        Stream ss2=l.stream();
+        Stream ss3=Stream.concat(ss1,ss2);
+
+
+
+  //map加工方法：
+                List<String>l1=new ArrayList<>();
+                Collections.addAll(l1,"12","13","2342");
+                Stream<String>stream1=l1.stream();
+//第一个是被加工的元素类型，第二个是加工后的元素类型。String String
+                stream1.map(new Function<String,String>(){
+                    @Override
+                    public String apply(String s) {
+                        return"?"+s;//在这里加工元素
+                    }
+                }).forEach(s->System.out.println(s));
+
+
+//将元素加工成对象；
+        l1.stream().map(s->new Student(s)).forEach(s->System.out.println("名字是:"+s.getName()));
+    }
+}
+
+class Student{
+    private String name;
+
+        public Student(String name){
+        this.name=name;
+        }
+
+        public String  getName(){
+        return name;
+        }
+}
+
+
+终结方法：
+void forEach（Consumer action）对流的每一个元素经行遍历：
+long count();返回流中的元素数量
+
+
+收集Stream流;
+将流操作后的元素返回到数组或集合中去。
+List<String>l=new ArrayList<>();
+        Collections.addAll(l,"12","13","2342");
+        //得到流
+        Stream<String>stream=l.stream();
+
+        List<String> list=stream.collect(Collectors.toList());
+        Set<String> set=stream.collect(Collectors.toSet());
+        
+        Map<String ,Integer> map=new HashMap<>();
+        Stream<Map.Entry<String,Integer>> stream1=map.entrySet().stream();
+        Map<String ,Integer> map1=stream1.collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
+
+        Object[]objects=stream.filter(s->s.startsWith("1")).toArray();//返回Object数组
+        String[]strings=stream.filter(s->s.startsWith("1")).toArray(s->new String[s]);//返回字符串数组
+        
+ 自定义List集合转换为Map集合：
+ import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class Test {
+    public static void main(String[] args){
+        List<Student> list = Arrays.asList(new Student(1, 18, "阿龙"),
+                                            new Student(2, 17, "小花"),
+                                            new Student(3, 17, "阿浪"));
+        Map<Integer,String> mapa=list.stream().collect(Collectors.toMap(Student::getId,Student::getName));
+    }
+}
+class Student{
+    private int id;
+    private String name;
+    private int age;
+
+    public Student() {
+    }
+
+    public Student(int id, int age,String name) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+}
