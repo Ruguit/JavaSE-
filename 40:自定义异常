@@ -1,0 +1,69 @@
+自定义编译时的异常
+
+import java.util.Scanner;
+
+public class TestDamo {
+    public static Scanner SC=new Scanner(System.in);
+    public static void main(String[] args){
+        while(true){
+            System.out.println("输入你的年龄：");
+            int age= SC.nextInt();
+            try {
+                AgeExcptionModule(age);
+                break;
+            } catch (AgeExcption ageExcption) {
+                ageExcption.printStackTrace();
+            }
+        }
+    }
+    public  static void AgeExcptionModule(int age) throws AgeExcption {
+        if(age<0||age>150){
+            throw new AgeExcption("年龄有问题,请重新输入");
+        }else{
+            System.out.println("年龄合法");
+        }
+    }
+}
+class AgeExcption extends Exception{
+    public AgeExcption() {
+    }
+
+    public AgeExcption(String message) {
+        super(message);
+    }
+}
+
+自定义运行时异常
+
+import java.util.Scanner;
+
+public class TestDamo {
+    public static Scanner SC=new Scanner(System.in);
+    public static void main(String[] args){
+        while(true){
+            System.out.println("输入你的年龄：");
+            int age= SC.nextInt();
+            try {
+                AgeExcptionModule(age);
+                break;
+            } catch (AgeExcption ageExcption) {
+                ageExcption.printStackTrace();
+            }
+        }
+    }
+    public  static void AgeExcptionModule(int age)  {
+        if(age<0||age>150){
+            throw new AgeExcption("年龄有问题,请重新输入");
+        }else{
+            System.out.println("年龄合法");
+        }
+    }
+}
+class AgeExcption extends Exception{
+    public AgeExcption() {
+    }
+
+    public AgeExcption(String message) {
+        super(message);
+    }
+}
