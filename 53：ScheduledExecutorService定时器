@@ -1,0 +1,17 @@
+
+importjava.util.concurrent.Executors;
+importjava.util.concurrent.ScheduledExecutorService;
+importjava.util.concurrent.TimeUnit;
+publicclassTestDamo{
+    
+    publicstaticvoidmain(String[] args){
+        //ScheduledExecutorService 内部为线程池 弥补了Timer的缺陷ScheduledExecutorServicepool=Executors.newScheduledThreadPool(3);
+        pool.scheduleAtFixedRate(newRunnable() {
+            @Overridepublicvoidrun(){
+                System.out.println(Thread.currentThread()+"执行一次");
+            }
+        },0,2, TimeUnit.SECONDS);
+    }
+}
+
+
