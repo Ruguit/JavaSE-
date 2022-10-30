@@ -1,0 +1,61 @@
+线程安全问题指的是：多个线程同时操作一个共享资源的时候，可能会出现业务安全问题，
+一般发生与同事修改同一个共享资源时。
+我一下面这段代码举例：
+首先是这一个共享的账户类People，它包含updateMoney（）方法，用于修改里面存储的金额Money，
+​
+
+publicclassPeople{
+    privatedoublemoney;
+publicPeople(){
+    }
+publicPeople(doublemoney){
+        this.money = money;
+    }
+publicdoublegetMoney(){
+        returnmoney;
+    }
+publicvoidsetMoney(doublemoney){
+        this.money = money;
+    }
+    publicvoidupdateMoney(doubleprice){
+        System.out.println("当前线程已经连接账户，账户余额："+money);
+        System.out.println(Thread.currentThread().getName()+"取钱："+price);
+        money-=price;
+        System.out.println("账户余额："+money);
+    }
+}
+
+
+​
+其次是它的主类；
+​
+
+publicclassTest1{
+    publicstaticvoidmain(String[] args)throwsException {
+        People people=newPeople(1000.0);//在账户中放入1000元//创建两个线程newMyThread(people,"1号").start();
+        newMyThread(people,"2号").start();
+    }
+}
+classMyThreadextendsThread{
+    privatePeople people;
+    publicMyThread(People people,String name){
+        super(name);
+        this.people=people;
+    }
+@Overridepublicvoidrun(){
+        //调用People的方法，从中取出1000元；people.updateMoney(1000.0);
+    }
+}
+
+
+​
+当然，这是有问题的，创建的两个线程同时执行，它们会同时从People中取出1000元，而本来People中就只有1000元，name就会造成以下的结果；
+当前线程已经连接账户，账户余额：1000.0
+当前线程已经连接账户，账户余额：1000.0
+2号取钱：1000.0
+1号取钱：1000.0
+账户余额：0.0
+账户余额：-1000.0
+
+这样就造成了线程安全问题
+
