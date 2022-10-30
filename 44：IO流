@@ -1,0 +1,92 @@
+IO字节输入流
+​
+importjava.io.File;
+importjava.io.FileInputStream;
+importjava.io.InputStream;
+publicclassTestDamo{
+    publicstaticvoidmain(String[] args){
+        //字节输入流try{
+            InputStream is=newFileInputStream("E:\\filedamo\\bbb.txt");//可以填文件对象或路径System.out.println(is.read());//每次读取一个字节byte[]bytes=newbyte[1024];
+            System.out.println(is.read(bytes));//每次读取一个bytes数组大小的字节File f=newFile("E:\\filedamo\\bbb.txt");
+            byte[]bytes1=newbyte[(int)f.length()];
+            System.out.println(bytes1);
+//官方APIbyte[] bytes2= is.readAllBytes();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+​
+IO字节输出流
+
+importjava.io.FileOutputStream;
+importjava.io.OutputStream;
+publicclassTestDamo{
+    publicstaticvoidmain(String[] args){
+        //字节输出流try{
+            OutputStream os=newFileOutputStream("");
+            os.write('1');//写一字节的数据String str="123";
+            byte[] bytes=str.getBytes();
+            os.write(bytes);//写数据os.flush();//刷新os.close();//关闭} catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+IO字符输入与输出流
+
+importjava.io.*;
+publicclassTestDamo{
+    publicstaticvoidmain(String[] args){
+        try{
+            //字符输出流Writer writer=newFileWriter("");
+            writer.write("一");//写一个字符byte[] bytes="你好".getBytes();
+            //字符输入流Reader reader=newFileReader("");
+            reader.read();//读一个字符File f=newFile("");
+            byte[]bytes1=newbyte[(int)f.length()];//得到所有字符} catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+IO缓冲流与转换流
+
+importjava.io.*;
+publicclassTest1{
+    publicstaticvoidmain(String[] args)throwsException {
+        //缓冲流InputStream in=newFileInputStream("");
+        BufferedInputStream bin=newBufferedInputStream(in);
+OutputStream os=newFileOutputStream("");
+        BufferedOutputStream osn=newBufferedOutputStream(os);
+        
+        Reader reader=newFileReader("");
+        BufferedReader bufferedReader=newBufferedReader(reader);
+        bufferedReader.readLine();//读一行数据Writer writer=newFileWriter("");
+        BufferedWriter writer1=newBufferedWriter(writer);
+        writer1.newLine();//换行操作//
+	字符输入转换流InputStream inputStream=newFileInputStream("");
+        Reader inputStreamReader=newInputStreamReader(inputStream);
+        //字符输出转换流OutputStream outputStream=newFileOutputStream("");
+        Writer writer2=newOutputStreamWriter(outputStream,"GBK");
+        
+    }
+}
+
+
+IO打印流与System.setout()；
+
+Import java.io.*;
+Public class Test1{
+    public static void main(String[] args)throws Exception {
+       //打印流PrintStream pa=new PrintStream("");
+        pa.print("这是一个打印流，这里可以打印任意类型的数据");
+        PrintWriter pw=new PrintWriter("");
+        pw.print("这是一个打印流，这里可以打印任意类型的数据");
+        //上面这两个流在打印功能上没有区别System.setOut(pa);
+        System.out.println("这里面是内容经过上一行的改变就会直接打印到对应的文件中去");
+}
+
+
