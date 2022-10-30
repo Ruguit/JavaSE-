@@ -1,0 +1,26 @@
+Properties属于Map集合系列，但是一般不会当集合使用，
+Propertise代表的是一个属性文件，可以把自己对象中的键值对信息存入到一个属性文件中去。
+这些文件的内容都是key=value，用于后续做系统配置信息的
+
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.Properties;
+
+public class Test {
+    public static void main(String[] args) throws Exception{
+
+        Properties properties=new Properties();
+
+        properties.setProperty("java1","1");
+        properties.setProperty("java2","2");
+        properties.setProperty("java3","3");
+
+        System.out.println(properties);
+        //输出文件
+        properties.store(new FileWriter(""),"录入java");
+        //得到文件
+        Properties properties1=new Properties();
+        properties1.load(new FileReader(""));
+
+    }
+}
