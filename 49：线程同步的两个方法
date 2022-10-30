@@ -1,0 +1,49 @@
+1：同步代码块
+​
+ publicvoidUpdateMoney(Double price){
+        System.out.println(Thread.currentThread() + "进来了");
+        synchronized(this){
+            if(price<=money){
+                //取钱System.out.println(Thread.currentThread()+"来取钱"+price);
+                money-=price;
+                System.out.println("剩余余额"+money);
+            }else{
+                System.out.println(Thread.currentThread()+"抱歉！余额不足");
+            }
+        }
+    }
+
+
+​
+ synchronized (同步锁对象){ 
+操作共享资源的代码 
+} 
+   
+注意一点：同步锁对象要保持唯一性，在对实例方法使用时，建议使用共享的资源，比如this，
+在对静态方法使用时，建议使用字节码，比如：类名.class
+
+
+方法2：同步方法
+​
+/***
+     * 取钱的方法
+     * @paramprice 要取的金额
+     */publicsynchronizedvoidUpdateMoney(Double price){
+        System.out.println(Thread.currentThread() + "进来了");
+        Lock lock=newReentrantLock();
+        lock.lock();
+            if(price<=money){
+                //取钱System.out.println(Thread.currentThread()+"来取钱"+price);
+                money-=price;
+                System.out.println("剩余余额"+money);
+            }else{
+                System.out.println(Thread.currentThread()+"抱歉！余额不足");
+            }
+        lock.unlock();
+    }
+
+
+​
+修饰符 后面 加上synchronized，然后调用Lock接口的ReentrantLock实现类，
+使用 lock()方法上锁,unlock()方法释放锁，
+
