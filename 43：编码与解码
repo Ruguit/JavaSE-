@@ -1,0 +1,16 @@
+
+Import java.util.Scanner;
+Public classTestDamo{
+Public static Scanner SC=new Scanner(System.in);
+Public static void main(String[] args)throws Exception{
+//编码
+byte[] bytes=("hellojava").getBytes("UTF-8");
+for(byte b:bytes){
+System.out.println(b);
+}
+
+//解码
+String str=new String(bytes,"UTF-8");
+System.out.println(str);
+}
+}
