@@ -1,0 +1,39 @@
+这是发送端代码:
+​
+
+importjava.net.*;
+publicclassTestDamo{
+    publicstaticvoidmain(String[] args)throwsException {
+        //UDP通信String str="hello";
+        byte[]bytes=str.getBytes();
+        System.out.println("创建数据包对象");
+        DatagramPacket dataStart=newDatagramPacket(bytes, bytes.length,InetAddress.getLocalHost(),8080);
+        System.out.println("创建发送端");
+        DatagramSocket datagramSocket=newDatagramSocket();
+        System.out.println("发生数据");
+        datagramSocket.send(dataStart);
+    }
+}
+
+
+​
+这是接收端代码;
+​
+
+importjava.net.DatagramPacket;
+importjava.net.DatagramSocket;
+publicclassTestDamo2{
+    publicstaticvoidmain(String[] args)throwsException {
+        System.out.println("创建数据包对象");
+        DatagramPacket datagramPacket=newDatagramPacket(newbyte[100],100);
+        System.out.println("创建接收端");
+        DatagramSocket datagramSocket=newDatagramSocket(8080);
+        System.out.println("等待接受数据");
+        datagramSocket.receive(datagramPacket);
+        System.out.println("接受数据成功");
+}
+}
+
+
+​
+
