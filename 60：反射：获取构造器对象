@@ -1,0 +1,98 @@
+ 
+import org.junit.Test;
+
+import java.lang.reflect.Constructor;
+
+public class TestDamo{
+    @Test
+    public void Test1(){
+        Class aClass = Student.class;
+        Constructor[] constructors=aClass.getConstructors();//返回所有public的构造器对象的数组
+        for (Constructor constructor : constructors) {
+            System.out.println(constructor.getName()+"===="+constructor.getParameterCount());//Student====3 参数名称====参数个数
+            System.out.println(constructor);//public Student(java.lang.String,int,java.lang.String)
+        }
+    }
+
+    @Test
+    public void Test2(){
+        Class aClass = Student.class;
+        Constructor[] constructors=aClass.getDeclaredConstructors();//返回所有的构造器对象的数组 不论权限
+        for (Constructor constructor : constructors) {
+            System.out.println(constructor.getName()+"===="+constructor.getParameterCount());
+            //Student====0
+            //Student====3 参数名称====参数个数
+            System.out.println(constructor);
+            //private Student()
+            //public Student(java.lang.String,int,java.lang.String)
+        }
+    }
+
+    @Test
+    public void Test3() throws NoSuchMethodException {
+        Class aClass = Student.class;
+        //通过参数定位有参构造器 参数类型.Class
+        Constructor constructors=aClass.getConstructor(String.class,int.class,String.class);//返回单个构造器对象的数组public
+        System.out.println(constructors.getParameterCount()+"==="+constructors.getName());//3===Student
+    }
+
+    @Test
+    public void Test4() throws NoSuchMethodException {
+        Class aClass = Student.class;
+        Constructor constructors=aClass.getConstructor(String.class,int.class,String.class);//返回单个构造器对象的数组 不论权限
+        System.out.println(constructors.getParameterCount()+"==="+constructors.getName());//3===Student
+
+        Constructor  constructor=aClass.getDeclaredConstructor();
+        System.out.println(constructor.getName()+"----"+constructor.getParameterCount());//Student----0
+    }
+
+}
+class Student{
+    private String name;
+    private int age;
+    private String sex;
+
+    private Student() {
+        System.out.println("无参构造器执行");
+    }
+
+    public Student(String name, int age, String sex) {
+        System.out.println("有参数构造器执行");
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                '}';
+    }
+}
