@@ -1,0 +1,20 @@
+ 
+importorg.junit.Test;
+
+importjava.lang.reflect.Method;
+importjava.util.ArrayList;
+importjava.util.Collections;
+importjava.util.List;
+
+publicclassTestDamo{
+@Test//绕过编译阶段为集合添加数据
+Public void test1() throws Exception{
+List<Integer>list=new ArrayList<>();
+Collections.addAll(list,1,2,3);
+System.out.println(list);//[1,2,3]
+Class<?extendsList>aClass=list.getClass();
+Methodadd=aClass.getDeclaredMethod("add",Object.class);
+add.invoke(list,"添加String");
+System.out.println(list);//1,2,3,添加String]
+}
+}
