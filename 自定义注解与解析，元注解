@@ -1,0 +1,27 @@
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@book(name="name1",number = 1)
+public class Test {
+    public static void main(String[] args) {
+    }
+
+    public void parseClass(){
+        Class c=Test.class;
+        if(c.isAnnotationPresent(book.class)){//判断类对象是否存在注解
+            //直接获取注解对象
+            book book=(book)c.getDeclaredAnnotation(book.class);
+            System.out.println(book.name());
+            System.out.println(book.number());
+        }
+    }
+}
+//使用元注解
+@Target({ElementType.TYPE})//约束使用的地方
+@Retention(RetentionPolicy.RUNTIME)//规定存在的生命周期
+@interface book{
+    String name();
+    int number();
+}
