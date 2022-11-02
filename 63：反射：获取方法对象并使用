@@ -1,0 +1,88 @@
+import org.junit.Test;
+
+import java.lang.reflect.Method;
+
+public class TestDamo{
+    @Test//得到所有
+    public void test1(){
+        Class s=Student.class;
+        Method[] declaredMethods = s.getDeclaredMethods();
+        for (Method declaredMethod : declaredMethods) {
+            System.out.println(declaredMethod.getName() + "返回类型" + declaredMethod.getReturnType()+ "参数个数" +declaredMethod.getParameterCount());
+        }
+    }
+    @Test//得到单个
+    public void test2() throws Exception {
+        Class s=Student.class;
+        Method declaredMethod1 = s.getDeclaredMethod("run");
+        Method declaredMethod2 = s.getDeclaredMethod("eat",String.class);
+        Student student=new Student();
+        declaredMethod1.invoke(student);//唤醒无参数的方法
+        declaredMethod2.invoke(student,"lucky");//唤醒有参数的方法
+    }
+
+
+}
+class Student{
+    private String name;
+    private int age;
+    private String sex;
+
+    Student() {
+        System.out.println("无参构造器执行");
+    }
+
+    public Student(String name, int age, String sex) {
+        System.out.println("有参数构造器执行");
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+    }
+
+    public void run(){
+        System.out.println("狗跑得最快");
+    }
+    public void eat(){
+        System.out.println("狗吃骨头");
+    }
+    public void eat(String name){
+        System.out.println("狗吃"+name);
+    }
+    public static void in(){
+        System.out.println("in");
+    }
+    public String getName() {
+        return name;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                '}';
+    }
+}
+
