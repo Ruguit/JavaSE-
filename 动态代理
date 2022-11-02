@@ -1,0 +1,54 @@
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Method;
+import java.lang.reflect.Proxy;
+
+public class TestDamo {
+    public static void main(String[] args){
+        //目标：学习开发一个动态代理的对象出来，理解动态代理的执行流程。
+        //创建一个对象，代表被代理对象
+        Start start=new Start();
+        //得到代理对象
+        someThing proxy = StartProxy.getProxy(start);
+        proxy.dance();
+        proxy.sing();
+    }
+}
+//代理类
+class StartProxy{
+    //设计一个方法返回明星对象的代理对象
+    public static someThing getProxy(Start start){
+        //为明星生成代理对象
+        return (someThing) Proxy.newProxyInstance(start.getClass().getClassLoader(),
+                start.getClass().getInterfaces(),
+                new InvocationHandler() {
+                    @Override
+                    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                        System.out.println("收首款");
+                        //method 正在调用的方法 args 调用的参数
+                        Object invoke = method.invoke(start, args);
+                        System.out.println("收尾款");
+                        return invoke;
+                    }
+                }
+        );
+    }
+
+}
+//明星类
+class Start implements someThing{
+
+    @Override
+    public void dance() {
+        System.out.println("明星开始跳舞");
+    }
+
+    @Override
+    public void sing() {
+        System.out.println("明星开始唱歌");
+    }
+}
+//行为
+interface someThing{
+    void dance();
+    void sing();
+}
