@@ -1,7 +1,7 @@
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
-
+//还可以做性能分析
 public class TestDamo {
     public static void main(String[] args){
         //目标：学习开发一个动态代理的对象出来，理解动态代理的执行流程。
