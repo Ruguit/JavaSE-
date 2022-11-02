@@ -1,0 +1,86 @@
+
+import org.junit.Test;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+
+public class TestDamo{
+
+    @Test
+    public void Test4() throws Exception {
+        Class aClass = Student.class;
+        Field[] declaredFields = aClass.getDeclaredFields();//定位所有成员变量
+        for (Field declaredField : declaredFields) {
+            System.out.println(declaredField.getName()+"==="+declaredField.getType().getName());
+        }
+        /*
+        name===java.lang.String
+        age===int
+        sex===java.lang.String
+        * */
+
+        //定位某个成员变量
+        Field name = aClass.getDeclaredField("name");
+        System.out.println(name);//private java.lang.String Student.name
+        //赋值
+        //暴力打开
+        name.setAccessible(true);
+        Student student=new Student();
+        name.set(student,"李华");  
+        System.out.println(student);//Student{name='李华', age=0, sex='null'}
+        //取值
+        String Name=(String) name.get(student);
+        System.out.println(Name);//李华
+    }
+
+}
+class Student{
+    private String name;
+    private int age;
+    private String sex;
+
+    Student() {
+        System.out.println("无参构造器执行");
+    }
+
+    public Student(String name, int age, String sex) {
+        System.out.println("有参数构造器执行");
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", sex='" + sex + '\'' +
+                '}';
+    }
+}
+
