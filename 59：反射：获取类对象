@@ -1,0 +1,14 @@
+
+publicclassTestDamo{
+publicstaticvoidmain(String[]args)throwsClassNotFoundException{
+//1:获取Class对象。使用Class中的一个静态方法，forName(全限名：包名+类名);
+ClassaClass=Class.forName("TestDamo");
+System.out.println(aClass);//classTestDamo
+//2:类名.class
+ClassbClass=TestDamo.class;
+System.out.println(bClass);//classTestDamo
+//3：对象名.getClass();获取对象对应类的Class对象
+TestDamotestDamo=newTestDamo();
+System.out.println(testDamo.getClass());//classTestDamo
+}
+}
