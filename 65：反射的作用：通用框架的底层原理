@@ -1,0 +1,36 @@
+在不清楚对象多少与类型 的情况下，将字段的对应名称与值存储到对应的文件中去；
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+import java.lang.reflect.Field;
+
+public class Test {
+    public static void main(String[] args) {
+
+    }
+
+    /***
+     * 
+     * @param obj 需要分析的类对象
+     */
+    public static void save(Object obj){
+        try(
+                PrintStream ps=new PrintStream(new FileOutputStream("这里写存储文件的路径"))
+                ){
+            Class c=obj.getClass();
+            ps.println("============="+c.getSimpleName()+"=============");//获取当前的类名,写入文件
+            Field[] files=c.getDeclaredFields();//提取全部成员变量
+            //获取成员变量的信息
+            for (Field file : files) {
+                String name=file.getName();
+                //获取成员变量的值
+                file.setAccessible(true);
+                String value=file.get(obj)+"";
+                ps.println(name+"="+value);
+            }
+        }catch(Exception e){
+
+        }
+
+    }
+}
