@@ -1,0 +1,104 @@
+XML概述：
+可扩展标记语言的缩写，常用于传输与存储数据。
+特点：
+1：纯文本，默认使用UTF-8编码，2；可嵌套
+使用场景：经常当作消息经行网络传输。或作为配置文件用于存储系统的信息。
+
+XML的创建：
+1：后缀必须使用.xml
+语法规则：
+1：文档声明必须是第一行：
+<?xml version="1.0" encoding="UTF-8" ?>
+<Student>
+    <name>hello</name>
+</Student>
+
+定义注释信息：
+<!- 注释内容 -->
+
+CDATA区：
+<![CDATA[...内容...]]>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--这里是注释-->
+<Student>
+    <name>李华</name>
+    <sex>男</sex>
+    <hobby>睡觉</hobby>
+    <info>
+        <age>22</age>
+        <address>人民路</address>
+    </info>
+    <sql>
+        select * from user where age &lt; 18;
+        <![CDATA[
+        select * from user where age < 18;
+        ]]>
+    </sql>
+</Student>
+
+
+
+xml文件的文档约束：DTD约束
+用于限定xml文件中的标签以及属性该
+eg：
+设置data.dtd文件为约束;
+<!ELEMENT 书架 (书+)>
+<!ELEMENT 书 (书名,作者,售价)>
+<!ELEMENT 书名 (#PCDATA)>
+<!ELEMENT 作者 (#PCDATA)>
+<!ELEMENT 售价 (#PCDATA)>
+xml文件引入DTD约束
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE 书架 SYSTEM "data.dtd">
+<书架>
+    <书>
+        <书名></书名>
+        <作者></作者>
+        <售价></售价>
+    </书>
+</书架>
+
+
+
+xml文件的文档约束：schema约束
+可以约束具体的数据类型，其本身也是一个xml文件，也受到其他约束文件的要求，
+
+编写data.xsd约束
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.yangyang.cn"
+        elementFormDefault="qualified">
+    <!--targetNamespace="http://www.yangyang.cn" 用于声明约束文档的地址-->
+    <element name="书架">
+        <!--写子元素-->
+        <complexType>
+            <!--maxOccurs="unbounded"书架下的子元素可以又多个-->
+            <sequence maxOccurs="unbounded">
+                <element name="书">
+                    <!--写子元素-->
+                    <complexType>
+                        <sequence>
+                            <element name="书名" type="string"/>
+                            <element name="作者" type="string"/>
+                            <element name="售价" type="double"/>
+                        </sequence>
+                    </complexType>
+                </element>
+            </sequence>
+        </complexType>
+    </element>
+</schema>
+
+导入;
+<?xml version="1.0" encoding="UTF-8" ?>
+<书架 xmlns="http://www.yangyang.cn" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.yangyang.cn data.xsd">
+    
+    <书>
+        <书名></书名>
+        <作者></作者>
+        <售价>1.1</售价>
+    </书>
+</书架>
+
