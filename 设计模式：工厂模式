@@ -1,0 +1,65 @@
+public class Test {
+    public static void main(String[] args) {
+        computer huawei=Factory.createComputer("huawei");
+        huawei.start();//huaweipromax启动了！
+        computer mac=Factory.createComputer("mac");
+        mac.start();//mac11启动了！
+    }
+}
+class Factory{
+    /***
+     * 该方法用于返回对象
+     * @param com :String
+     * @return
+     */
+    public static computer createComputer(String com){
+        switch (com){
+            case "huawei":
+                computer c=new Huawei();
+                c.setName("huaweipromax");
+                c.setPrice(2222.2);
+                return c;
+            case "mac":
+                computer c1=new Mac();
+                c1.setName("mac11");
+                c1.setPrice(3333.3);
+                return c1;
+            default:
+                return null;
+        }
+    }
+}
+class Huawei extends computer {
+    @Override
+    public void start() {
+        System.out.println(getName()+"启动了！");
+    }
+}
+class Mac extends computer{
+    @Override
+    public void start() {
+        System.out.println(getName()+"启动了！");
+    }
+}
+abstract class computer{
+    private String name;
+    private double price;
+
+    public  abstract void start();
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+}
+
